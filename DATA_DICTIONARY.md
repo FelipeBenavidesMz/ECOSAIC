@@ -4,9 +4,9 @@ This document describes all input and output files used across the three scripts
 
 ---
 
- # Variable name mapping: internal code → descriptive English label (internal name → readable English label)    
+ ## Variable name mapping: internal code → descriptive English label (internal name → readable English label)    
 
-# ── Biogeochemical — Physicochemical sub-group ──────────────────
+###  Biogeochemical — Physicochemical sub-group
     'Phosphate':            'Phosphate',
     'Iron':                 'Iron',
     'Light_bottom':         'Light at bottom',
@@ -19,14 +19,14 @@ This document describes all input and output files used across the three scripts
     'P_a_r':                'Photosynthetically active radiation',
     'Organic_matter':       'Organic matter',
 
-# ── Biogeochemical — Biological sub-group ───────────────────────
+###  Biogeochemical — Biological sub-group 
 
     'Chlorophyll':          'Chlorophyll',
     'Phytoplankton':        'Phytoplankton',
     'Utilized_oxygen':      'Utilized oxygen',
     'Primary_productivity': 'Primary productivity',
 
-# ── Hydrogeomorphological ───────────────────────────────────────
+###  Hydrogeomorphological 
     'Aspect':               'Aspect',
     'Eastness':             'Eastness',
     'River_influence':      'River influence',
