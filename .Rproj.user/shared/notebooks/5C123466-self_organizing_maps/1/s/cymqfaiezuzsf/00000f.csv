@@ -1,0 +1,44 @@
+"0","library(kohonen)"
+"0","library(dplyr)"
+"2","
+Adjuntando el paquete: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(raster)"
+"2","Cargando paquete requerido: sp
+"
+"2","
+Adjuntando el paquete: ‘raster’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    select
+
+"
+"0","library(ggplot2)"
+"0","library(sf)"
+"2","Aviso: package ‘sf’ was built under R version 4.5.2"
+"2","Linking to GEOS 3.13.1, GDAL 3.11.4, PROJ 9.7.0; sf_use_s2() is TRUE
+"
+"0","library(geodata)"
+"2","Cargando paquete requerido: terra
+"
+"2","terra 1.8.60
+"
+"0","library(mapview)"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"0","library(readxl)"
