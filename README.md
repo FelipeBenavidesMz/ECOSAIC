@@ -64,7 +64,7 @@ Applies a Self-Organizing Map (SOM) to the latent features LE1 and LE2 to classi
 
 ---
 
-### Step 3 — Biological Validation App (`ECOSAIC_BenthicHabitat_Validator.R`)
+### Step 3 — Biological Validation App (`app_benthic_habitat_validator.R`)
 
 Interactive Shiny application for exploring dominant species per habitat cluster, computing specificity, fidelity, IndVal, and environmental range overlap against literature values.
 
@@ -92,6 +92,5 @@ If you use this workflow, please cite the associated publication:
 
 ## License
 
-This project is licensed under the MIT License. See `LICENSE` for details.
 
-> **Note on dependencies:** All required R and Python packages are loaded at the top of each script. If any package is not yet installed on your system, you will need to install it manually before running the script. Alternatively, run `REQUIREMENTS.R` to install all R dependencies at once.
+
