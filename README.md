@@ -1,8 +1,8 @@
-# ECOSAIC — Environmental Classification of Ocean Seabed Areas for the Identification of Communities
+# Ecologically-informed Compression through Orthogonal Specialized Autoencoders for Interpretable Classification
 
 ## Overview
 
-ECOSAIC is a reproducible workflow for mapping and validating potential benthic habitats in the Colombian Pacific Ocean. It integrates a dual autoencoder neural network (ECOSAIC model) with Self-Organizing Maps (SOM) and species occurrence data to produce an ecologically validated potential habitat map.
+ECOSAIC is a reproducible workflow for mapping and validating potential benthic habitats. It integrates a dual autoencoder neural network (ECOSAIC model) with Self-Organizing Maps (SOM) and species occurrence data to produce an ecologically validated potential habitat map.
 
 The workflow consists of three sequential scripts and one interactive Shiny application:
 
