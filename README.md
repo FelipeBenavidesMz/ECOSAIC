@@ -74,9 +74,7 @@ Interactive Shiny application for exploring dominant species per habitat cluster
 - `species_environmental_preferences_literature.csv`
 
 Run the app with:
-```r
-shiny::runApp("scripts/ECOSAIC_BenthicHabitat_Validator.R")
-```
+**To launch the app**, open `app_benthic_habitat_validator.R` in RStudio, select the line below, and press **Ctrl + Enter**:
 
 ---
 
