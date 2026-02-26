@@ -80,8 +80,7 @@ Run the app with:
 
 ## Adapting Paths to Your Local Machine
 
-Each script reads and writes files using absolute paths. Before running, update the path variables at the top of each script to match your local directory structure. Example:
-
+Each script reads and writes files using absolute paths. Before running, update the path variables at the top of each script to match your local directory structure. 
 ## Citation
 
 If you use this workflow, please cite the associated publication:
