@@ -1,0 +1,164 @@
+---
+title: "Classification Using Self-Organizing Maps on ECOSAIC Latent Features"
+date: "2025-01-08"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r 1 cargar librerias}
+library(kohonen)
+library(dplyr)
+library(raster)
+library(ggplot2)
+library(sf)
+library(geodata)
+library(mapview)
+library(readxl)
+```
+
+
+
+```{r 2. load and prepare data}
+# Load the file containing latent features and environmental variables
+datos <- read.csv("F:/ECOSAIC/data/outputs/LE_DUAL_OPTIMIZED_20260224_170020.csv", header = TRUE)
+
+# Select columns associated with latent features
+features <- datos[, c('LE1_FisicoBio_OPTIMIZED', 'LE2_Hidro_OPTIMIZED')]
+```
+
+
+```{r 3. Scale the features}
+features_scaled <- scale(features)
+head(features)
+head(features_scaled) 
+```
+
+
+```{r 4. Define range of values for SOM fine tuning}
+grid_sizes <- list(c(4,4), c(5, 5), c(7, 7), c(10, 10), c(20, 20), c(1, 1))
+rlen_values <- c(50, 100, 200)
+alpha_values <- list(c(1, 0.5), c(1, 0.1), c(1,0.01), c(0.5,1), c(0.5,0.5), c(1,0.1))
+radius_values <- list(c(10, 5), c(5, 1))
+```
+
+
+```{r 5. Create a data frame to store the results of fine tuning}
+results <- data.frame(
+  xdim = integer(),
+  ydim = integer(),
+  rlen = integer(),
+  alpha_start = double(),
+  alpha_end = double(),
+  radius_start = double(),
+  radius_end = double(),
+  quantization_error = double(),
+  topographic_error = double()
+)
+```
+
+
+```{r 6. Train the SOM neural network with the tuned parameters}
+for (grid_size in grid_sizes) {
+  som_grid <- somgrid(grid_size[1], grid_size[2], "rectangular")
+  for (rlen in rlen_values) {
+    for (alpha in alpha_values) {
+      for (radius in radius_values) {
+        # Train the SOM with the current combination of parameters
+        set.seed(123) # For reproducibility
+        som_model <- som(features_scaled, grid = som_grid, rlen = rlen, alpha = alpha, radius = radius)
+        
+        # Calculate errors
+        quantization_error <- mean(som_model$distances)
+        topographic_error <- mean(som_model$changes)
+        
+        # Store the results
+        results <- rbind(results, data.frame(
+          xdim = grid_size[1],
+          ydim = grid_size[2],
+          rlen = rlen,
+          alpha_start = alpha[1],
+          alpha_end = alpha[2],
+          radius_start = radius[1],
+          radius_end = radius[2],
+          quantization_error = quantization_error,
+          topographic_error = topographic_error
+        ))
+      }
+    }
+  }
+}
+
+```
+
+
+```{r 7. evaluate the model}
+print(results)
+ordered_results_topographic = results[order(results$topographic_error),]
+ordered_results2_quantization = results[order(results$quantization_error),]
+#
+ordered_results_final = ordered_results_topographic[ordered_results_topographic$xdim == 4,]
+ordered_results_final[ , c(8,9)]   [which.min(rowSums(ordered_results_final[ , c(8,9)])), ]
+```
+
+
+```{r 8. Use fine tuned hyperparameters to re-train the neural network}
+set.seed(123)
+grid_size <- c(4,4)
+som_grid <- somgrid(grid_size[1], grid_size[2], "rectangular")
+som_opt <- som(features_scaled, grid=som_grid, rlen=100, alpha=c(1, 0.01), radius=c(5,1))
+table(som_opt$unit.classif)
+
+raster_som <- rasterFromXYZ(data.frame(datos$longitude, datos$latitude, som_opt$unit.classif))
+crs(raster_som) <- CRS("EPSG:3115")
+
+wgs84_crs <- CRS("+proj=longlat +datum=WGS84 +no_defs")
+raster_som <- projectRaster(raster_som, crs = wgs84_crs, method = 'ngb')
+plot(raster_som, col = rainbow(25))
+```
+
+
+```{r 9. Save as rasterfile}
+writeRaster(raster_som, "F:/ECOSAIC/data/outputs/
+            ECOSAIC_SOM_BenthicHabitats_ColombianPacific_LE1LE2_4x4_WGS84.tif", overwrite =T)
+```
+
+
+```{r 10. Merge latent features with environmental variables and SOM-derived habitat class}
+
+coordinates_df <- as.data.frame(coordinates(raster_som))
+coordinates_df <- coordinates_df[!is.na(coordinates_df), ]
+final_table <- data.frame(features_scaled, som_opt$unit.classif)
+
+# Method: Using the 'dplyr' package (recommended)
+# If not yet installed: install.packages("dplyr")
+library(dplyr)
+
+# Rename columns in final_table before merging
+final_table_renamed <- final_table %>%
+  rename(
+    LE1_FisicoBio_norm = LE1_FisicoBio_OPTIMIZED,
+    LE2_Hidro_norm     = LE2_Hidro_OPTIMIZED
+  )
+
+# Merge dataframes column-wise
+# The new variable will contain all columns from both dataframes
+ECOSAIC_LatentFeatures_EnvVariables_SOMclass_ColombianPacific <- bind_cols(final_table_renamed, datos)
+
+# Preview the first rows to confirm column names were updated
+head(ECOSAIC_LatentFeatures_EnvVariables_SOMclass_ColombianPacific)
+
+# Define the full output path
+output_path <- "F:/ECOSAIC/data/outputs/ECOSAIC_LatentFeatures_EnvVariables_SOMclass_ColombianPacific.csv"
+
+# Save the dataframe to the specified path
+# 'row.names = FALSE' prevents row indices from being written as a column in the CSV
+write.csv(ECOSAIC_LatentFeatures_EnvVariables_SOMclass_ColombianPacific, output_path, row.names = FALSE)
+
+cat(paste("Output saved at:", output_path, "\n"))
+```
+

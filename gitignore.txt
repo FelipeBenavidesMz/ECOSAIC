@@ -1,0 +1,62 @@
+# =============================================================
+# R
+# =============================================================
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+.Renviron
+
+# R package build artifacts
+*.tar.gz
+*.zip
+
+# =============================================================
+# Python
+# =============================================================
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv/
+env/
+venv/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+
+# =============================================================
+# Data files (keep out of version control — use Zenodo/OSF)
+# =============================================================
+data/
+*.csv
+*.tif
+*.tiff
+*.shp
+*.dbf
+*.shx
+*.prj
+*.cpg
+*.geojson
+*.nc
+*.h5
+*.hdf5
+
+# Model weights and checkpoints
+*.keras
+*.h5
+*.pt
+*.pth
+checkpoints/
+
+# =============================================================
+# OS and editor noise
+# =============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.vscode/
+.idea/
