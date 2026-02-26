@@ -35,7 +35,7 @@ ECOSAIC/
 
 ### Prerequisites
 
-Install all required R packages by running `REQUIREMENTS.R` before executing any script.
+**Note on dependencies:** All required R and Python packages are loaded at the top of each script. If any package is not yet installed on your system, you will need to install it manually before running the script. Alternatively, run `REQUIREMENTS.R` to install all R dependencies at once.
 
 ### Step 1 — ECOSAIC: Dual Autoencoder and Latent Feature Extraction (`ECOSAIC.R`)
 
