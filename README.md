@@ -1,4 +1,4 @@
-# Ecologically-informed Compression through Orthogonal Specialized Autoencoders for Interpretable Classification
+# ECOSAIC- Ecologically-informed Compression through Orthogonal Specialized Autoencoders for Interpretable Classification
 
 ## Overview
 
