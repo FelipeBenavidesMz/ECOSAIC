@@ -23,9 +23,7 @@ ECOSAIC/
 │   ├── SOM_benthic_habitat_classification.R
 │   └── ECOSAIC_BenthicHabitat_Validator.R
 ├── README.md
-├── REQUIREMENTS.R
-├── DATA_DICTIONARY.md
-├── LICENSE
+├── Data_Dictionary.md
 └── .gitignore
 ```
 
