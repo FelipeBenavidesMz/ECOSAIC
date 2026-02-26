@@ -19,7 +19,7 @@ The workflow consists of three sequential scripts and one interactive Shiny appl
 ```
 ECOSAIC/
 ├── scripts/
-│   ├── ECOSAIC.R
+│   ├── ECOSAIC.ipynb
 │   ├── SOM_benthic_habitat_classification.R
 │   └── ECOSAIC_BenthicHabitat_Validator.R
 ├── README.md
@@ -37,7 +37,7 @@ ECOSAIC/
 
 **Note on dependencies:** All required R and Python packages are loaded at the top of each script. If any package is not yet installed on your system, you will need to install it manually before running the script. Alternatively, run `REQUIREMENTS.R` to install all R dependencies at once.
 
-### Step 1 — ECOSAIC: Dual Autoencoder and Latent Feature Extraction (`ECOSAIC.R`)
+### Step 1 — ECOSAIC: Dual Autoencoder and Latent Feature Extraction (`ECOSAIC.ipynb`)
 
 Trains a dual autoencoder on physico-biological (LE1) and hydrogeomorphological (LE2) environmental variables to obtain compressed latent representations of the seabed environment.
 
